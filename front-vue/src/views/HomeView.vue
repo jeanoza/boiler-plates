@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
+import ButtonComponent from '@/components/ButtonComponent.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <MainLayout>
+    <ButtonComponent :label="'test button'" />
+  </MainLayout>
 </template>
