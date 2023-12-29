@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <input
-      class="input"
+      :class="`input ${isActive(modelValue) ? 'active' : ''}`"
       v-bind="$attrs"
       :type="type"
       :value="modelValue"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-const { modelValue } = defineProps({
+defineProps({
   label: String,
   type: String,
   modelValue: String
@@ -33,10 +33,13 @@ const isActive = (value?: String) => {
 .label {
   @apply absolute capitalize top-2 left-2 text-lg;
 }
-.active {
-  @apply text-xs text-blue-300 top-1;
+label.active {
+  @apply text-xs text-blue-400 top-1;
 }
 .input {
-  @apply bg-inherit outline-none w-full border-b;
+  @apply bg-inherit outline-none w-full;
+}
+input.active {
+  @apply border-b;
 }
 </style>
