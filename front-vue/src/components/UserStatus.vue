@@ -10,7 +10,7 @@ import router from '@/router'
 const user = ref(null)
 
 const handleOnClick = () => {
-  router.push('/sign')
+  router.push('/auth')
 }
 </script>
 <style scoped></style>

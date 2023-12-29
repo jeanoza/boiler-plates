@@ -17,9 +17,9 @@ const router = createRouter({
       component: () => import('@/views/BlogView.vue')
     },
     {
-      path: '/sign',
-      name: 'sign',
-      component: () => import('@/views/SignView.vue')
+      path: '/auth',
+      name: 'auth',
+      component: () => import('@/views/AuthView.vue')
     }
   ]
 })

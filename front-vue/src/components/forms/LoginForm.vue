@@ -1,17 +1,17 @@
 <template>
   <form class="form" @submit.prevent="handleOnSubmit">
     <div class="row-wrapper">
-      <InputField label="name" type="text" v-model="loginFormData.name" v-if="!isSignIn" />
+      <InputField label="name" type="text" v-model="loginFormData.name" v-if="isSignUp" />
       <InputField label="email" type="email" v-model="loginFormData.email" />
       <InputField label="password" type="password" v-model="loginFormData.password" />
     </div>
     <div class="row-wrapper toggle">
-      <span v-if="!isSignIn">Do you have already account?</span>
-      <span v-if="isSignIn">Do you want to join us?</span>
+      <span v-if="isSignUp">Do you have already account?</span>
+      <span v-else>Do you want to join us?</span>
       <span class="click" @click="handleOnToggle">Click</span>
     </div>
     <div class="row-wrapper btn-container">
-      <ButtonComponent :label="isSignIn ? 'LogIn' : 'Join'" />
+      <ButtonComponent :label="isSignUp ? 'Join' : 'Login'" />
       <ButtonComponent label="Cancel" @click.prevent="clear" />
     </div>
   </form>
@@ -28,7 +28,7 @@ const loginFormData = reactive({
   email: '',
   password: ''
 })
-const isSignIn = ref(true)
+const isSignUp = ref(false)
 
 const handleOnSubmit = (e: Event) => {
   e.preventDefault()
@@ -37,7 +37,7 @@ const handleOnSubmit = (e: Event) => {
   clear()
 }
 const handleOnToggle = () => {
-  isSignIn.value = !isSignIn.value
+  isSignUp.value = !isSignUp.value
 }
 
 const clear = () => {
