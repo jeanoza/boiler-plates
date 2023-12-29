@@ -1,6 +1,11 @@
 <template>
-  <main class="h-[calc(100vh-6rem)]">
+  <main class="main">
     <slot></slot>
   </main>
 </template>
-<script setup lang="ts"></script>
+
+<style scoped>
+.main {
+  @apply h-[calc(100vh-6rem)];
+}
+</style>

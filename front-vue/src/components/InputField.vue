@@ -1,0 +1,42 @@
+<template>
+  <div class="input-field">
+    <label :class="`label ${isActive(modelValue) ? 'active' : ''}`">
+      {{ label }}
+    </label>
+    <input
+      class="input"
+      v-bind="$attrs"
+      :type="type"
+      :value="modelValue"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+const { modelValue } = defineProps({
+  label: String,
+  type: String,
+  modelValue: String
+})
+defineEmits(['update:modelValue'])
+
+const isActive = (value?: String) => {
+  return value && value.length > 0
+}
+</script>
+
+<style scoped>
+.input-field {
+  @apply relative pt-3 pb-2 px-2 border rounded text-lg mb-4;
+}
+.label {
+  @apply absolute capitalize top-2 left-2 text-lg;
+}
+.active {
+  @apply text-xs text-blue-300 top-1;
+}
+.input {
+  @apply bg-inherit outline-none w-full border-b;
+}
+</style>

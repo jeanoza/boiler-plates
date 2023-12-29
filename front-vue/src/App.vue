@@ -9,5 +9,3 @@ import FooterLayout from './components/layouts/FooterLayout.vue'
   <RouterView />
   <FooterLayout />
 </template>
-
-<style scoped></style>
