@@ -49,7 +49,7 @@ const clear = () => {
 
 <style scoped>
 form {
-  @apply max-w-md w-full m-auto;
+  @apply max-w-md w-full;
 }
 .row-wrapper {
   @apply w-1/2 m-auto;

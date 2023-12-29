@@ -9,3 +9,9 @@ import FooterLayout from './components/layouts/FooterLayout.vue'
   <RouterView />
   <FooterLayout />
 </template>
+
+<style>
+.center {
+  @apply flex justify-center items-center;
+}
+</style>

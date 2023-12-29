@@ -1,9 +1,12 @@
 <template>
   <MainLayout class="center">
-    <div>home</div>
+    <LoginForm />
   </MainLayout>
 </template>
 
 <script setup lang="ts">
 import MainLayout from '@/components/layouts/MainLayout.vue'
+import LoginForm from '@/components/forms/LoginForm.vue'
 </script>
+
+<style scoped></style>

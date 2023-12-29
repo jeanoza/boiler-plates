@@ -6,6 +6,6 @@
 
 <style scoped>
 .main {
-  @apply h-[calc(100vh-6rem)];
+  @apply h-[calc(100vh-6rem)] w-screen;
 }
 </style>

@@ -8,11 +8,15 @@
         {{ nav.name }}
       </RouterLink>
     </nav>
+    <UserStatus />
   </header>
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import { RouterLink } from 'vue-router'
+
+const UserStatus = defineAsyncComponent(() => import('@/components/UserStatus.vue'))
 
 const navList = [
   {
@@ -20,8 +24,8 @@ const navList = [
     path: '/'
   },
   {
-    name: 'About',
-    path: '/about'
+    name: 'Blog',
+    path: '/blog'
   }
 ]
 </script>
