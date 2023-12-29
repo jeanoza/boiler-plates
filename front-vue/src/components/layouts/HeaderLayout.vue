@@ -24,8 +24,8 @@ const navList = [
     path: '/'
   },
   {
-    name: 'Blog',
-    path: '/blog'
+    name: 'Post',
+    path: '/post'
   }
 ]
 </script>
