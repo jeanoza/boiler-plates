@@ -12,6 +12,6 @@ const year = date.getFullYear()
 
 <style scoped>
 .footer {
-  @apply h-12 flex justify-center items-center border-t border-neutral-200;
+  @apply h-12 flex justify-center items-center border-t border-neutral-200 gap-2;
 }
 </style>
