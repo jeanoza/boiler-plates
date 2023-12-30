@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
+
+    //TODO: to remove after implement encoding system(Bcrypt?)
+    Optional<Member> findByPassword(String password);
 }

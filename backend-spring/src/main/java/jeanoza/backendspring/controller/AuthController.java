@@ -25,13 +25,13 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<String> login (@RequestBody LoginForm loginForm){
+    public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
+        authServiceImpl.login(loginForm);
         return ResponseEntity.ok().body("login");
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<String> join(@RequestBody JoinForm joinForm) {
-        log.info("joinForm: {}", joinForm);
         authServiceImpl.join(joinForm);
         return ResponseEntity.ok().body("join");
     }

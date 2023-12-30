@@ -16,10 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthServiceImpl implements AuthService{
     private final MemberRepository memberRepository;
 
+
+    //TODO: password encoding
     @Override
     @Transactional
     public Long join(JoinForm joinForm) {
-
         if (memberRepository.findByEmail(joinForm.getEmail()).isPresent()) {
             throw new RuntimeException("Already registered email");
         }
@@ -29,17 +30,23 @@ public class AuthServiceImpl implements AuthService{
         member.setEmail(joinForm.getEmail());
         member.setPassword(joinForm.getPassword());
 
-        Member newMember = memberRepository.save(member);
-        return newMember.getId();
+        return memberRepository.save(member).getId();
     }
 
     @Override
     public void login(LoginForm loginForm) {
-
+        if (!validationLogin(loginForm.getEmail(), loginForm.getPassword())) {
+            throw new RuntimeException("Invalid email or password");
+        }
+        //TODO: login logic (jwt?)
     }
 
     @Override
     public void logout() {
         //TODO
+    }
+
+    public boolean validationLogin(String email, String password) {
+        return memberRepository.findByEmail(email).isPresent() && memberRepository.findByPassword(password).isPresent();
     }
 }

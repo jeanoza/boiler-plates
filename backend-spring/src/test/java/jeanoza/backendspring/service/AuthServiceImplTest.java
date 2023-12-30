@@ -1,6 +1,7 @@
 package jeanoza.backendspring.service;
 
 import jeanoza.backendspring.model.JoinForm;
+import jeanoza.backendspring.model.LoginForm;
 import jeanoza.backendspring.model.Member;
 import jeanoza.backendspring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional(readOnly = true)
+@Transactional
 class AuthServiceImplTest {
     @Autowired
     MemberRepository memberRepository;
@@ -19,7 +20,6 @@ class AuthServiceImplTest {
     AuthService authService;
 
     @Test
-    @Transactional
     void join() {
 
         //given
@@ -39,7 +39,6 @@ class AuthServiceImplTest {
     }
 
     @Test
-    @Transactional
     void joinException() {
 
         //given
@@ -64,6 +63,45 @@ class AuthServiceImplTest {
 
     @Test
     void login() {
+
+        //given
+        JoinForm joinForm = new JoinForm();
+        joinForm.setName("jeanoza");
+        joinForm.setEmail("jeanoza@gmail.com");
+        joinForm.setPassword("1234");
+
+        authService.join(joinForm);
+
+        LoginForm loginForm = new LoginForm();
+        loginForm.setEmail("jeanoza@gmail.com");
+        loginForm.setPassword("1234");
+
+        //when
+        authService.login(loginForm);
+
+        //then
+    }
+
+    @Test
+    void loginFailed() {
+        //given
+        JoinForm joinForm = new JoinForm();
+        joinForm.setName("jeanoza");
+        joinForm.setEmail("jeanoza@gmail.com");
+        joinForm.setPassword("1234");
+
+        authService.join(joinForm);
+
+        LoginForm loginForm = new LoginForm();
+        loginForm.setEmail("jeanoza@gmail.com");
+        loginForm.setPassword("1235");
+
+        //when
+
+        //then
+        assertThrows(RuntimeException.class, () -> {
+            authService.login(loginForm);
+        });
     }
 
     @Test
