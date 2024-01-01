@@ -1,12 +1,10 @@
 package jeanoza.backendspring.model;
 
 
-import lombok.*;
+import lombok.Data;
 
 
-@Getter
-@Setter
-@ToString
+@Data
 public class LoginForm {
     private String email;
     private String password;

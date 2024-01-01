@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService{
     //TODO: password encoding
     @Override
     @Transactional
-    public Long join(JoinForm joinForm) {
+    public Member join(JoinForm joinForm) {
         if (memberRepository.findByEmail(joinForm.getEmail()).isPresent()) {
             throw new RuntimeException("Already registered email");
         }
@@ -30,15 +30,16 @@ public class AuthServiceImpl implements AuthService{
         member.setEmail(joinForm.getEmail());
         member.setPassword(joinForm.getPassword());
 
-        return memberRepository.save(member).getId();
+        return memberRepository.save(member);
     }
 
     @Override
-    public void login(LoginForm loginForm) {
+    public Member login(LoginForm loginForm) {
         if (!validationLogin(loginForm.getEmail(), loginForm.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
         //TODO: login logic (jwt?)
+        return memberRepository.findByEmail(loginForm.getEmail()).get();
     }
 
     @Override

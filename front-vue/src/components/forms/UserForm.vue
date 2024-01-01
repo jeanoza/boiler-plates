@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { reactive, defineAsyncComponent, ref } from 'vue'
+import { fetchData } from '@/utils/api'
 
 const InputField = defineAsyncComponent(() => import('@/components/InputField.vue'))
 const ButtonComponent = defineAsyncComponent(() => import('@/components/ButtonComponent.vue'))
@@ -32,9 +33,18 @@ const isSignUp = ref(false)
 
 const handleOnSubmit = (e: Event) => {
   e.preventDefault()
-  //get password and email then send logic
-  console.log(loginFormData)
-  clear()
+  const url = isSignUp.value ? 'auth/sign-up' : 'auth/sign-in'
+
+  fetchData('post', url, loginFormData)
+    .then((res) => {
+      //TODO: fix this after implement auth
+      const { password, ...rest } = res
+      localStorage.setItem('user', JSON.stringify(rest))
+      window.location.href = '/' //TODO: I wanna use router.push but how to re-render UserStatus.vue when localStorage changed?
+    })
+    .catch((err) => {
+      alert(err.message)
+    })
 }
 const handleOnToggle = () => {
   isSignUp.value = !isSignUp.value

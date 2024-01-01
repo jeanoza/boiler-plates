@@ -29,12 +29,12 @@ class AuthServiceImplTest {
         joinForm.setPassword("1234");
 
         //when
-        Long savedId = authService.join(joinForm);
+        Member savedMember = authService.join(joinForm);
 
         //then
         memberRepository.findByEmail(joinForm.getEmail())
                 .ifPresent(member -> {
-                    assertEquals(savedId, member.getId());
+                    assertEquals(savedMember.getId(), member.getId());
                 });
     }
 

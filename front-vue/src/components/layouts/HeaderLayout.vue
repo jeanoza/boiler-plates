@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <RouterLink to="/">
+    <RouterLink to="/" class="w-80">
       <img alt="Vue logo" class="h-8 w-auto" src="@/assets/logo.svg" />
     </RouterLink>
     <nav>
