@@ -40,7 +40,9 @@ const handleOnSubmit = (e: Event) => {
       //TODO: fix this after implement auth
       const { password, ...rest } = res
       localStorage.setItem('user', JSON.stringify(rest))
-      window.location.href = '/' //TODO: I wanna use router.push but how to re-render UserStatus.vue when localStorage changed?
+      window.location.href = '/'
+      //TODO: I wanna use router.push but how to re-render UserStatus.vue when localStorage changed?
+      //But it's not important now as I will use auth0 or jwt send by cookie
     })
     .catch((err) => {
       alert(err.message)

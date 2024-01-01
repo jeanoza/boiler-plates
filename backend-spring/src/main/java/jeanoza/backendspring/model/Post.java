@@ -1,12 +1,8 @@
 package jeanoza.backendspring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -21,12 +17,13 @@ public class Post {
     private String name;
     private String content;
 
-    @CreatedBy
-    private Long createdBy;
-
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private LocalDate deletedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "createdBy")
+    private Member member;
 
     public Post() {
         this.createdAt = LocalDate.now();

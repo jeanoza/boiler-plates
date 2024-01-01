@@ -2,7 +2,7 @@
   <MainLayout class="post">
     <div class="w-1/2 max-w-4xl m-auto">
       <div class="flex justify-end py-4">
-        <ButtonComponent label="New" />
+        <ButtonComponent label="New" @click="$router.push('/post/create')" />
       </div>
       <TableComponent v-if="FAKE_DATA" :data="FAKE_DATA" :headers="Object.keys(FAKE_DATA[0])" />
     </div>
