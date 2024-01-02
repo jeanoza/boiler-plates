@@ -7,8 +7,6 @@ import jeanoza.backendspring.model.member.LoginFormDto;
 import jeanoza.backendspring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,10 +38,6 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
         return memberRepository.findByEmail(loginFormDto.getEmail()).get();
-    }
-
-    public void logout() {
-        //TODO
     }
 
     public Member getMember(Long id) {

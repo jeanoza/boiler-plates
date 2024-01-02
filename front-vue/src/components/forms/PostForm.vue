@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { reactive, defineAsyncComponent, ref } from 'vue'
 import { fetchData } from '@/utils/api'
+import router from '@/router'
 
 const InputField = defineAsyncComponent(() => import('@/components/InputField.vue'))
 const ButtonComponent = defineAsyncComponent(() => import('@/components/ButtonComponent.vue'))
@@ -28,11 +29,11 @@ const postFormData = reactive({
 
 const handleOnSubmit = (e: Event) => {
   e.preventDefault()
-  const url = 'api/post'
+  const url = 'posts'
 
   fetchData('post', url, postFormData)
-    .then((res) => {
-      //TODO: fix this after implement auth
+    .then((_) => {
+      router.push('/post')
     })
     .catch((err) => {
       alert(err.message)

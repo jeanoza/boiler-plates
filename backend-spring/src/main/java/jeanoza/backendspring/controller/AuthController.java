@@ -30,16 +30,12 @@ import java.util.Optional;
 public class AuthController {
     private final AuthService authService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<?> getAuth(HttpServletRequest request) {
         try {
-            Optional<String> userIdByCookie = CookieUtils.getUserIdByCookie(request);
-            if (userIdByCookie.isPresent()) {
-                Long memberId = Long.parseLong(userIdByCookie.get());
-                return ResponseEntity.ok()
-                        .body(authService.getMember(memberId));
-            }
-            throw new RuntimeException("Not auth info");
+            Long memberId = CookieUtils.getUserIdByCookie(request);
+            return ResponseEntity.ok()
+                    .body(authService.getMember(memberId));
         } catch (RuntimeException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -62,7 +58,6 @@ public class AuthController {
             //TODO: replace with jwt token after
             HttpHeaders headers = CookieUtils.createHeaderWithCookie("user_id", logged.getId().toString(), 3600);
 
-            log.info(headers.toString());
             return ResponseEntity.ok()
                     .headers(headers)
                     .body("Successful logged in");
@@ -80,7 +75,6 @@ public class AuthController {
             Member joined = authService.join(joinFormDto);
             //TODO: replace with jwt token after
             HttpHeaders headers = CookieUtils.createHeaderWithCookie("user_id", joined.getId().toString(), 3600);
-            log.info(headers.toString());
 
             return ResponseEntity.ok()
                     .headers(headers)

@@ -30,15 +30,19 @@ public class CookieUtils {
         return addCookieToHeaders(cookie);
     }
 
-    public static Optional<String> getUserIdByCookie(HttpServletRequest request) {
+    public static Long getUserIdByCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             throw new RuntimeException("No auth");
         }
-        return Arrays.stream(cookies)
+        Optional<String> memberId = Arrays.stream(cookies)
                 .filter(cookie -> "user_id".equals(cookie.getName()))
                 .map(Cookie::getValue)
                 .findFirst();
 
+        if (memberId.isPresent()) {
+            return Long.parseLong(memberId.get());
+        }
+        throw new RuntimeException("Not auth info");
     }
 }

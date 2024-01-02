@@ -7,14 +7,17 @@ import jeanoza.backendspring.model.post.UpdatePostDto;
 import jeanoza.backendspring.repository.MemberRepository;
 import jeanoza.backendspring.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -23,10 +26,10 @@ public class PostService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Post createPost(CreatePostDto createPostDto) {
+    public Post createPost(CreatePostDto createPostDto, Long memberId) {
 
         Member member = memberRepository
-                .findById(createPostDto.getCreatedBy())
+                .findById(memberId)
                 .orElseThrow(
                         () -> new RuntimeException("No member corresponding to id")
                 );
@@ -34,25 +37,28 @@ public class PostService {
         Post post = new Post();
         post.setName(createPostDto.getName());
         post.setContent(createPostDto.getContent());
-        post.setCreatedAt(LocalDate.now());
-        post.setUpdatedAt(LocalDate.now());
         post.setMember(member);
 
         return postRepository.save(post);
     }
 
-    public Post updatePost(Long id, UpdatePostDto updatePostDto) {
+    @Transactional
+    public Post updatePost(Long id, UpdatePostDto updatePostDto, Long memberId) {
         Post oldPost = postRepository
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("No post corresponding with this Id"));
-//        Member member = memberRepository
-//                .findById(updatePostDto.getCreatedBy())
-//                .orElseThrow(
-//                        () -> new RuntimeException("No member corresponding to id")
-//                );
+
+        Member member = memberRepository
+                .findById(memberId)
+                .orElseThrow(
+                        () -> new RuntimeException("No member corresponding to id")
+                );
+        if (!member.getId().equals(oldPost.getMember().getId()))
+            throw new RuntimeException("Member are not creator");
 
         updatePostDto.getName().ifPresent(oldPost::setName);
         updatePostDto.getContent().ifPresent(oldPost::setContent);
+        oldPost.setUpdatedAt(LocalDateTime.now());
 
         return postRepository.save(oldPost);
     }
@@ -62,10 +68,10 @@ public class PostService {
     }
 
     public Post getPost(Long id) {
-        return null;
+        return postRepository.findById(id).orElse(null);
     }
 
     public List<Post> getPosts() {
-        return null;
+        return postRepository.findAll();
     }
 }
