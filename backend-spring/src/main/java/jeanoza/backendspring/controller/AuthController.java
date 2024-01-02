@@ -47,7 +47,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/sign-out")
     public ResponseEntity<?> logout() {
         HttpHeaders headers = CookieUtils.createHeaderWithCookie("user_id", "", 0);
         return ResponseEntity.ok()

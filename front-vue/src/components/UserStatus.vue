@@ -26,11 +26,12 @@ onMounted(async () => {
     user.value = await fetchData('get', '/auth')
   } catch (e) {
     console.log(e)
+    router.push('/auth') //redirect to auth page
   }
 })
 
 const handleOnClickLogout = () => {
-  fetchData('get', '/auth/logout')
+  fetchData('get', '/auth/sign-out')
     .then((_) => {
       window.location.href = '/'
     })
