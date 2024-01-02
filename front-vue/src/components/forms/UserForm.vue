@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import { reactive, defineAsyncComponent, ref } from 'vue'
 import { fetchData } from '@/utils/api'
+import router from '@/router'
 
 const InputField = defineAsyncComponent(() => import('@/components/InputField.vue'))
 const ButtonComponent = defineAsyncComponent(() => import('@/components/ButtonComponent.vue'))
@@ -36,13 +37,11 @@ const handleOnSubmit = (e: Event) => {
   const url = isSignUp.value ? 'auth/sign-up' : 'auth/sign-in'
 
   fetchData('post', url, loginFormData)
-    .then((res) => {
-      //TODO: fix this after implement auth
-      const { password, ...rest } = res
-      localStorage.setItem('user', JSON.stringify(rest))
+    .then((_) => {
       window.location.href = '/'
-      //TODO: I wanna use router.push but how to re-render UserStatus.vue when localStorage changed?
-      //But it's not important now as I will use auth0 or jwt send by cookie
+      // TODO: Normally, I should use router.push('/');
+      // But for this, I should force re-render UserStatus.vue for getting user data.
+      // router.push('/')
     })
     .catch((err) => {
       alert(err.message)

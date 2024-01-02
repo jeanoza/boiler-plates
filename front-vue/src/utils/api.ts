@@ -9,7 +9,8 @@ export const fetchData = async <T>(method: string, url: string, data?: T) => {
   return axios({
     method,
     url,
-    data: data ?? null
+    data: data ?? null,
+    withCredentials: true
   })
     .then((response) => response.data)
     .catch((error: Error | AxiosError) => {

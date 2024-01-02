@@ -11,6 +11,7 @@
 import { onMounted, ref } from 'vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import router from '@/router'
+import { fetchData } from '@/utils/api'
 
 interface User {
   name: string
@@ -20,16 +21,22 @@ interface User {
 const user = ref<User>()
 
 //TODO: fix this after implement auth
-onMounted(() => {
-  const userStr = localStorage.getItem('user')
-  if (userStr) {
-    user.value = JSON.parse(userStr)
+onMounted(async () => {
+  try {
+    user.value = await fetchData('get', '/auth')
+  } catch (e) {
+    console.log(e)
   }
 })
 
 const handleOnClickLogout = () => {
-  localStorage.removeItem('user')
-  user.value = undefined
+  fetchData('get', '/auth/logout')
+    .then((_) => {
+      window.location.href = '/'
+    })
+    .catch((err) => {
+      alert(err.message)
+    })
 }
 
 const handleOnClickLogin = () => {
