@@ -2,10 +2,7 @@
   <form class="form" @submit.prevent="handleOnSubmit">
     <div class="row-wrapper">
       <InputField label="Title" type="text" v-model="postFormData.name" />
-      <textarea
-        v-model="postFormData.content"
-        class="w-full bg-inherit border rounded min-h-80 p-2 text-lg mb-4"
-      ></textarea>
+      <textarea v-model="postFormData.content" class="textarea"></textarea>
     </div>
     <div class="row-wrapper btn-container">
       <ButtonComponent label="Create" />
@@ -58,5 +55,8 @@ form {
 }
 .click {
   @apply cursor-pointer text-blue-400;
+}
+.textarea {
+  @apply w-full bg-inherit border rounded min-h-80 p-2 text-lg mb-4;
 }
 </style>

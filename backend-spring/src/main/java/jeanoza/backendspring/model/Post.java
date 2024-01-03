@@ -2,7 +2,10 @@ package jeanoza.backendspring.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,37 +14,34 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String content;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name ="created_at")
     private LocalDateTime createdAt;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name ="updated_at")
     private LocalDateTime updatedAt;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name ="deleted_at")
     private LocalDateTime deletedAt;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "createdBy")
-    @JsonIgnore
+    @ManyToOne(fetch =  FetchType.EAGER)
+    @JoinColumn(name = "created_by")
+//    @JsonIgnore
+    @JsonManagedReference
     private Member member;
 
     public Post() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
-
-    public Post(String name, String content) {
-        this();
-        this.name = name;
-        this.content = content;
-    }
-
 }

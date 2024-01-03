@@ -1,8 +1,14 @@
 package jeanoza.backendspring.repository;
 
 import jeanoza.backendspring.model.Post;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import jeanoza.backendspring.model.post.PostDto;
 
+import java.util.List;
+import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post, Long> { }
+public interface PostRepository {
+    Post save(Post post);
+    List<Post> findAll();
+
+    Optional<Post> findById(Long id);
+}

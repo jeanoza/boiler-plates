@@ -3,6 +3,7 @@ package jeanoza.backendspring.service;
 import jeanoza.backendspring.model.Member;
 import jeanoza.backendspring.model.Post;
 import jeanoza.backendspring.model.post.CreatePostDto;
+import jeanoza.backendspring.model.post.PostDto;
 import jeanoza.backendspring.model.post.UpdatePostDto;
 import jeanoza.backendspring.repository.MemberRepository;
 import jeanoza.backendspring.repository.PostRepository;

@@ -16,6 +16,7 @@ export const fetchData = async <T>(method: string, url: string, data?: T) => {
     .catch((error: Error | AxiosError) => {
       const msg = axios.isAxiosError(error) ? error?.response?.data : error?.message
       console.error(`Error ${method} request to ${url}: ${msg}`)
+      console.log(msg)
       throw Error(msg)
     })
 }
