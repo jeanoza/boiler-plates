@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
